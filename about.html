@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About LearnVault</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <a href="index.html"><img src="img/bird.jpg" alt="bird" class="logo"></a>
+            <h1 class="heading">LearnVault – Your Shortcut to Smarter Learning</h1>
+            <ul class="nav">
+                <li><a href="index.html">home</a></li>
+                <li><a href="about.html" class="active">about</a></li>
+                <li><a href="contact.html">contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="about">
+        <main>
+            <h2>About LearnVault</h2>
+            <p>
+                Hi, I’m a college student who knows how much time can be wasted searching for study notes online.
+                I created LearnVault to save you that effort and provide a simple, focused platform with the best
+                resources for learning programming, web development, game development, and more.
+            </p>
+            <p>
+                My goal is to help students like us stay productive, learn efficiently, and spend energy on what really matters
+                instead of browsing countless websites for tutorials.
+            </p>
+            <p>
+                LearnVault is built with the belief that learning should be easy, accessible, and stress-free.  
+                Thank you for being part of this journey!
+            </p>
+        </main>
+    </section>
+
+    <footer>
+        <p>&copy; <span id="year"></span> LearnVault. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Automatically update year
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+
+        <nav>
+            <a href=""><img src="img/bird.jpg" alt="bird" class="logo"></a>
+            <h1 class="heading">Empower Your Learning Journey with LearnVault</h1>
+            <ul class="nav">
+                <li><a href="#home">home</a></li>
+                <li><a href="about.html">about</a></li>
+                <li><a href="contact.html">contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <br><br>
+    <!-- main -->
+
+    <section class="home">
+        <main>
+            <div class="home">
+
+
+                <div class="implinks">
+
+                    <h1>Important Resources</h1>
+
+
+                    <!-- C / C++ -->
+                    <ul>
+                        <li><a href="https://developers.google.com/edu/c%2B%2B/cpp-in-depth" target="_blank"
+                                rel="noopener">Google – C++ In Depth</a></li>
+                        <!-- :contentReference[oaicite:0]{index=0} -->
+                        <li><a href="https://www.learn-cpp.org/" target="_blank" rel="noopener">Learn-Cpp.org – Free
+                                Interactive C++ Tutorial</a></li>
+                    </ul>
+
+                    <!-- Java -->
+                    <ul>
+                        <li><a href="https://docs.oracle.com/javase/tutorial/" target="_blank" rel="noopener">Oracle –
+                                The
+                                Java™ Tutorials</a></li> <!-- :contentReference[oaicite:2]{index=2} -->
+                        <li><a href="https://www.oracle.com/education/training/java/" target="_blank"
+                                rel="noopener">Oracle
+                                Java Training & Certification</a></li>
+                    </ul>
+
+                    <!-- Web Development -->
+                    <ul>
+                        <li><a href="https://developer.mozilla.org/en-US/docs/Learn/web_development" target="_blank"
+                                rel="noopener">MDN Web Docs – Learn Web Development</a></li>
+
+                        <li><a href="https://github.com/microsoft/Web-Dev-For-Beginners" target="_blank"
+                                rel="noopener">Microsoft – Web Dev For Beginners (GitHub curriculum)</a></li>
+
+                    </ul>
+
+                    <!-- Win API / Windows Desktop Apps -->
+                    <ul>
+                        <li><a href="https://learn.microsoft.com/en-us/windows/win32/" target="_blank"
+                                rel="noopener">Microsoft Learn – Build desktop Windows apps using the Win32 API</a></li>
+
+                    </ul>
+
+                    <!-- Unity Game Development -->
+                    <ul>
+                        <li><a href="https://learn.unity.com/" target="_blank" rel="noopener">Unity Learn – Official
+                                Unity
+                                game development tutorials</a></li>
+                    </ul>
+
+                </div>
+
+                <!-- midsection -->
+                <div class="midsec">
+                    <h2>Search Study Notes</h2>
+                    <p>Find legal, free study notes for any topic:</p>
+                    <input type="text" id="searchInput" placeholder="Enter topic (e.g., semiconductor, Python)">
+                    <button onclick="searchNotes()">Search</button>
+                    <ul id="results"></ul>
+                </div>
+
+                <script>
+                    async function searchNotes() {
+                        const query = document.getElementById("searchInput").value.toLowerCase();
+                        const results = document.getElementById("results");
+                        results.innerHTML = "<li>Searching...</li>";
+
+                        const matchedNotes = [];
+
+                        // === Dynamic search URLs for any topic ===
+                        const searchSources = [
+                            { name: "MIT OCW", link: `https://ocw.mit.edu/search/?q=${encodeURIComponent(query)}` },
+                            { name: "Khan Academy", link: `https://www.khanacademy.org/search?page_search_query=${encodeURIComponent(query)}` },
+                            { name: "OpenStax", link: `https://openstax.org/search/site/${encodeURIComponent(query)}` }
+                        ];
+
+                        searchSources.forEach(source => matchedNotes.push({ title: `${source.name} - Search for "${query}"`, link: source.link }));
+
+                        // === GitHub API search (PDF, Markdown, Notebook, TXT) ===
+                        try {
+                            const response = await fetch(`https://api.github.com/search/code?q=${encodeURIComponent(query)}+in:path+extension:pdf,md,ipynb,txt`, {
+                                headers: { Accept: "application/vnd.github.v3.text-match+json" }
+                            });
+                            const data = await response.json();
+                            if (data.items && data.items.length > 0) {
+                                data.items.forEach(item => {
+                                    matchedNotes.push({ title: item.name + " (GitHub)", link: item.html_url });
+                                });
+                            }
+                        } catch (err) {
+                            console.error(err);
+                        }
+
+                        // === Display results ===
+                        results.innerHTML = "";
+                        if (matchedNotes.length === 0) {
+                            results.innerHTML = "<li>No results found.</li>";
+                        } else {
+                            matchedNotes.forEach(note => {
+                                const li = document.createElement("li");
+                                li.innerHTML = `<a href="${note.link}" target="_blank" rel="noopener">${note.title}</a>`;
+                                results.appendChild(li);
+                            });
+                        }
+                    }
+                </script>
+
+
+
+                <!-- leftsection -->
+                <div class="lefside">
+
+                    <h2>Learn Smarter, Not Harder</h2>
+                    <p>
+                        In college, every hour counts. Searching endlessly for notes or tutorials online wastes precious
+                        time
+                        and energy. LearnVault was created to help students like you focus on what really matters:
+                        learning efficiently.
+                    </p>
+                    <p>
+                        Here, you’ll find the best resources for programming, web development, game development, and
+                        more —
+                        carefully selected to save you time and help you grow your skills faster.
+                    </p>
+                    <p>
+                        Your learning journey shouldn’t be overwhelming. With LearnVault, it’s focused, practical, and
+                        productive.
+                        Start exploring, stay curious, and make every minute count.
+                    </p>
+
+                </div>
+            </div>
+        </main>
+    </section>
+    <br><br>
+
+
+    <!-- footer -->
+
+    <footer>
+        <p>&copy; <span id="year"></span> LearnVault. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Automatically update year
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+</body>
+
+</html>
